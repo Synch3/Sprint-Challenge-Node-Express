@@ -132,4 +132,18 @@ server.put("/api/actions/:id", (req,res) => {
 });
 
 
+server.get("/api/projects/:id/actions", (req,res) => {
+    const id = req.params.id; 
+    pModel.getProjectActions(id).then(projectActions => {
+        if(projectActions){
+            res.status(200).json(project); 
+        }else{
+            res.status(404).json({error: "The specified ID does not exist"})
+        }
+    }).catch(err => {
+        res.status(500).json({error:"Error retrieving the project from the database"})
+    })
+})
+
+
 server.listen(9000);
